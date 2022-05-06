@@ -1,204 +1,172 @@
+<!-- 06th May 2022
+1. Translated "Index.html" contents to English (exluding author's comment's)--!>
 <!--
-H5GG 版本更新记录:
-
-H5GG v3.5 正式发布：
-1：修复个别APP卡死和悬浮菜单消失问题
-2：修复浮点显示为0问题并区分显示浮点
-3：修复邻近搜索，保留匹配的原数据，保留原数据格式，基本上和igg一模一样
-4：搜索排除一部分插件自己数据
-5：增加搜索中提示信息框和文本
-6：增加结果列表下滑自动加载更多数据
-7：修复上限过大搜索失败的问题
-
-H5GG v3.6 测试版本：
-1： 优化js脚本接口地址参数解析，可以使用十进制或0x开头十六进制自动识别无需手动转换
-2：增加脚本加载功
-能， 可以从当前APP的Documents目录加载，也可以从网址加载服务器中的js脚本
-
-H5GG v3.7 版本测试：
-新增脚本异常错误提示，再也不要担心脚本没反应了.
-新增搜索.app目录中的js，可以和ipa一起打包js脚本免越狱了.
-
-H5GG v3.8 正式发布：
-1：优化js脚本h5gg接口getValue/setValue 地址参数解析，可以使用十进制或0x开头十六进制自动识别无需手动转换
-2：增加脚本js文件加载功能， 可以从当前APP的ipa中的.app主程序目录加载，也可以从当前APP的Documents数据目录加载，也可以从网址加载服务器中的js脚本
-3：新增脚本异常错误提示，再也不要担心js脚本写错没反应了. 错误提示具体到文件，行号，列数。
-4：去除UIKit注入更加稳！
-
-H5GG v3.9测试版：
-1：优化加载脚本后执行中的提示， 避免执行中没提示多次点击触发出现异常
-2：增强JS错误提示模块， 避免H5文件改错后没有JS错误提示信息
-3：修复部分APP的H5提示信息框显示在悬浮窗下层问题
-4：修复加载JS脚本，如果引擎提示出错后，界面卡死问题
-
-H5GG v4.0测试版：
-1：优化竖屏界面比例显示，只占用一半屏幕，不会占用全屏，优化部分app悬浮窗会消失问题，现在完全不会消失
-2：新增脚本列表中可以从本地文件管理器选择js或html格式
-3：脚本加载增加html格式支持，可以选择本地H5文件或网络H5链接，自动替换当前界面
-4：增加js脚本请求http网络Get/Post权限（使用方式自行百度jquery ajax）注：本地h5界面可以请求任何域名，网络H5页面只能请求同域名.
-
-
-H5GG v4.1 测试：
-1： 第一次点击悬浮按钮检测无网络给出弹窗提醒
-2： 增加js设置悬浮按钮网络图标的接口功能
-3： 增加js设置悬浮窗口位置和尺寸的接口功能
-4： 可以触摸悬浮窗口非滑动区域进行拖动悬浮窗
-5： 优化浮点数显示，包括界面和js接口返回的数据（比igg更精确)
-
-H5GG v4.2 测试:
-1: 增加getRangesList接口, 可以获取模块列表和模块基址
-2: 增加setValue修改只读内存的能力, 自动处理内存权限属性
-3: 增加数值范围搜索功能, 例如"50~100", 比如"2.3~7.8"
-4: 新增制作dylib功能, 可以生成自己图标和菜单的专属dylib
-5: 修复某些时候悬浮按钮可能显示在输入法上的BUG
-
-H5GG v4.2.1 测试:
-1: 修复部分APP从文件管理器中选择脚本无反应问题
-H5GG v4.2.2 测试:
-1: 检测H5中是否有FastClick模块, H5GG不再需要这个模块, 请从H5末尾删除, 否则界面卡死
-H5GG v4.2.3 测试:
-1: 修复部分情况下弹框卡住界面无反应的问题
-
-H5GG v4.3 测试:
-1: 重做全局弹框完美呈现, 彻底解决卡界面,消失,显示到下层等问题
-2: 增加js设置悬浮窗可拖动区域, 自定义H5界面需要调用js设置才可拖动
-3: 已解决部分APP从文件管理器中选择脚本无反应的问题
-
-
-H5GG v4.4 测试:
-1: 修复部分APP中弹框显示在下层问题
-2: 修复导致cydia商店页面显示异常问题
-
-H5GG v4.5 测试:
-1: 修复部分APP中连续弹框可能显示到下层的问题
-2: 修复4.4版本悬浮按钮会显示在系统App中的问题
-
-H5GG v5.0 发布:
-1: 正式支持跨进程模式, 同时支持免越狱注入, 越狱注入, 越狱跨进程不注入三种模式
-首发跨进程版为iMemEditor绑定版, 需要从iME中打开使用, 后续由shadow发布独立app版
-2: 调整为允许未越狱设备制作dylib, 但是要自己想办法从App文档中导出dylib文件
-3: 修复部分app启动时由于切换页面导致的悬浮按钮突然消失的问题
-4: 修复在部分设备上setValue修改基址数据可能失败的问题
-
-H5GG v5.1 测试:
-1: 跨进程版改为由shadow开发的独立app,修复在14系统兼容问题
-3: 修复跨进程版无法调用getRangesList获取模块基址的问题
-4: 更换由shadow设计的H5GG专用图标, 更有品味
-
-H5GG v5.2 测试:
-1: 修复跨进程版在c1越狱环境下无法选择目标的问题
-2: 新增跨进程版的目标选择js接口调用, 普通版无需调用
-
-H5GG v5.3 测试:
-1: 由暗影修复c1越狱可能提示无网络问题
-2: 更新由QQ昵称提供12系统的适配方案
-3: 跨进程版调整为启动自动显示窗口界面
-
-H5GG v5.4 测试:
-1: 修复跨重新选择进程后不会自动清空列表的问题
-2: 调整左侧按钮界面布局, 更加直观清晰明了
-3: 针对个别设备无联网权限, 新增详细提示信息
-
-H5GG v5.5 测试:
-1: 修复部分设备js中的提示框显示异常问题
-2: 修复部分设备点击制作插件跨进程APP闪退的问题
-3: 修复部分设备制作插件提示失败的问题
-4: 修复安装通用版之后跨进程版APP白屏的问题
-5: 优化小于1.0的F32/F64显示格式问题
-
-H5GG v5.6 测试:
-1: 优化数值搜索和邻近搜索参数错误提示信息
-2: 优化网络故障的提示信息, 内置jquery离线也可运行
-3: 增加getRangesList返回模块结尾地址(.end属性)
-4: 悬浮窗口支持边框背景透明，需要设置body{background-color: transparent}
-5: 增强核心模块的安全性，使运行更加稳定，更加流畅
-6: 修复部分情况下上滑结果列表没有加载更多数据的问题
-
-H5GG v5.7 测试:
-1: 修复拖动悬浮窗口到屏幕边缘的时候尺寸自动缩小的问题
-2: 增加顶部可拖动悬浮窗的区域尺寸, 横屏模式更易拖动
-3: 优化悬浮窗口区域外可以触摸操作原先的APP界面
-4: 悬浮窗改为默认不透明,调节透明度使用 body{background-color: rgba(255,255,255,0.8)}
-5: 新增js接口setWindowTouch, 可以设置悬浮窗口的触控穿透, 用于全屏绘图
-7: 新增js接口setButtonAction, 可以设置自定义的悬浮按钮点击动作
-8: 优化部分js接口(非h5gg引擎), 统一命名, 暂时旧版兼容
-
-H5GG v5.8 测试:
-1: 修复全屏绘图模式下ipad无法触控操作卡屏的问题
-2: 新增js接口setButtonImage, 可以设置悬浮按钮的图标
-3: 新增js接口setWindowVisible, 可以设置悬浮窗口的显示或隐藏
-4: 优化H5底层图形引擎, 增强图形引擎运行效率和性能
-
-H5GG v5.9 测试:
-1: 修复跨进程版中窗口显示尺寸不正确的问题
-2: 修复超大范围搜索可能报错内存不足的问题
-3: 降低搜索过程的内存占用, 更加流畅稳定
-4: 邻近搜索的临近范围限制为2~4096之间
-5: 新增横竖屏切换自动调整悬浮窗布局位置
-6: 修复ipad分屏模式下看不到悬浮窗口的问题
-7: 修复点击搜索结果无法弹出修改弹框的问题
-
-H5GG v6.0 测试:
-1: 跨进程版app现在可以全局悬浮显示了!
-2: 修复5.9版本搜索闪退和结果不正确的问题
-3: 跨进程版app中隐藏图标和关闭菜单按钮
-4: 修复手机握持朝向变化时界面闪烁的问题
-5: 修复部分APP中开启提示JS加载失败的问题
-
-H5GG v6.1 测试:
-1: 修复跨进程APP打开可能的闪退问题
-2: 修复点击桌面悬浮按钮卡屏无反应问题
-3: 修复旋转屏幕时悬浮按钮到屏幕外的问题
-
-H5GG v6.2 测试:
-1: 修复跨进程悬浮锁屏后解锁无法打开问题
-2: 跨进程悬浮模式支持全局透明背景
-3: 跨进程悬浮模式支持悬浮窗口外触摸穿透
-4: 跨进程悬浮模式支持自定义按钮动作
-5: 分离跨进程悬浮模块为可插拔式
-
-H5GG v6.3 测试:
-1: 完美支持ipad分屏/悬浮自动调整界面布局
-2: 修复ipad分屏旋转屏幕悬浮图标位置错乱问题
-3: 修复跨进程划出多任务悬浮界面显示异常问题
-4: 重新优化跨进程悬浮旋转方式,自动跟随当前APP
-5: 加载新的H5页面前自动清除拖动区域,按钮动作等
-
-H5GG v6.4 测试:
-1: 跨进程悬浮版不在支持iPad分屏和浮动
-2: 新增跨进程普通版,支持iPad分屏和浮动
-3: 修复iPad分屏浮动时显示超出边框问题
-4: 修复跨进程悬浮在ipad旋转布局异常问题
-5: 修复跨进程悬浮在ipad可能开启卡住问题
-6: 修复通用版无网络情况下开启可能闪退的问题
-
-H5GG v6.5 测试:
-1: 修复跨进程版全屏绘图无法触控屏幕的问题
-2: 修复全屏模式下隐藏显示菜单可能闪退问题
-3: 修复搜索结果列表高度显示可能异常的问题
-4: 修复部分ios13弹出提示框显示在下层的问题
-
-H5GG v6.6 测试:
-1: 跨进程全屏悬浮适配ios12系统
-2: 通用版禁入部分会出现冲突的APP
-
-H5GG v6.7 测试:
-1: 跨进程全屏悬浮适配ios11系统悬浮
-2: 修复跨进程版卸载deb自动结束的问题
-3: 增加跨进程版本没有选择目标的提示信息
-4: 增加js接口setLayoutAction处理动态布局
-5: 优化部分逻辑判断提前适配ios15系统越狱
-6: 优化悬浮窗口自动布局适配部分老旧设备
-
-H5GG v6.8 测试:
-1: 跨进程悬浮图标调整为开启APP后才显示
-2: 跨进程悬浮版支持制作插件的自定义图标
-
-H5GG v6.9 更新:
-1: 修复跨进程悬浮版开启无反应问题
-2: 修复跨进程版卸载后图标残留问题
-
+H5GG version update record:
+H5GG v3.5 is officially released:
+1: Fix the problem that individual APPs get stuck and the floating menu disappears
+2: Fix the problem of floating point display as 0 and distinguish floating point display
+3: Repair the proximity search, keep the matching original data, keep the original data format, basically the same as igg
+4: Search to exclude part of the plug-in's own data
+5: Increase the prompt information box and text in the search
+6: Increase the result list slide down to automatically load more data
+7: Fix the problem that the search fails if the upper limit is too large
+H5GG v3.6 beta version:
+1: Optimize the parsing of js script interface address parameters, you can use decimal or hexadecimal starting with 0x to automatically identify without manual conversion
+2: Increase the script loading function
+Yes, it can be loaded from the Documents directory of the current APP, or the js script in the server can be loaded from the URL
+H5GG v3.7 version test:
+Added script exception error prompt, don't worry about the script not responding anymore.
+Added search for js in the .app directory, you can package js scripts together with ipa to avoid jailbreaking.
+H5GG v3.8 is officially released:
+1: Optimize js script h5gg interface getValue/setValue address parameter parsing, you can use decimal or hexadecimal starting with 0x to automatically identify without manual conversion
+2: Add the script js file loading function, which can be loaded from the .app main program directory in the ipa of the current APP, can also be loaded from the Documents data directory of the current APP, or can load the js script in the server from the URL
+3: Added script exception error prompt, don't worry about js script writing wrong and no response. The error prompt is specific to the file, line number, and column number.
+4: Removing UIKit injection is more stable!
+H5GG v3.9 beta version:
+1: Optimize the prompts during execution after loading the script to avoid exceptions when multiple clicks are triggered without prompts during execution
+2: Enhance the JS error prompt module to avoid no JS error prompt message after the H5 file is corrected
+3: Fix the problem that the H5 prompt information box of some APPs is displayed in the lower layer of the floating window
+4: Fix loading JS script, if the engine prompts an error, the interface is stuck
+H5GG v4.0 beta version:
+1: Optimize the proportional display of the vertical screen interface, only occupy half of the screen, not the full screen, optimize the problem that some app floating windows will disappear, and now it will not disappear at all
+2: In the new script list, you can choose js or html format from the local file manager
+3: Script loading adds html format support, you can select local H5 files or network H5 links, and automatically replace the current interface
+4: Increase the js script to request http network Get/Post permission (using Baidu jquery ajax by yourself) Note: The local h5 interface can request any domain name, and the network H5 page can only request the same domain name.
+H5GG v4.1 test:
+1: Click the floating button for the first time to detect no network and give a pop-up reminder
+2: Increase the interface function of js setting the floating button network icon
+3: Add the interface function of js to set the position and size of the floating window
+4: You can touch the non-sliding area of ​​the floating window to drag the floating window
+5: Optimize the display of floating-point numbers, including the data returned by the interface and js interface (more accurate than igg)
+H5GG v4.2 test:
+1: Add getRangesList interface, you can get module list and module base address
+2: Increase the ability of setValue to modify read-only memory, and automatically process memory permission attributes
+3: Add value range search function, such as "50~100", such as "2.3~7.8"
+4: Added the function of making dylibs, which can generate exclusive dylibs for your own icons and menus
+5: Fix the bug that sometimes the floating button may be displayed on the input method
+H5GG v4.2.1 test:
+1: Fixed the problem that some APPs did not respond when selecting scripts from the file manager
+H5GG v4.2.2 test:
+1: Check if there is a FastClick module in H5, H5GG no longer needs this module, please delete it from the end of H5, otherwise the interface will be stuck
+H5GG v4.2.3 test:
+1: Fix the problem that the pop-up box is stuck and the interface is unresponsive in some cases
+H5GG v4.3 test:
+1: Redo the global pop-up box to perfectly present, completely solve the problem of card interface, disappear, display to the lower layer, etc.
+2: Add js to set the draggable area of ​​the floating window, custom H5 interface needs to call the js setting before it can be dragged
+3: Solved the problem that some apps did not respond when selecting scripts from the file manager
+H5GG v4.4 test:
+1: Fix the problem that the pop-up box is displayed in the lower layer in some APPs
+2: Fix the problem that causes the cydia store page to display abnormally
+H5GG v4.5 test:
+1: Fixed the problem that the continuous pop-up box in some APPs may be displayed to the lower layer
+2: Fixed the issue that the floating button in version 4.4 would be displayed in the system app
+H5GG v5.0 release:
+1: Officially supports cross-process mode, and supports three modes: jailbreak-free injection, jailbreak injection, and jailbreak cross-process non-injection
+The first cross-process version is the iMemEditor binding version, which needs to be opened and used from iME, and the independent app version will be released by shadow later
+2: Adjust to allow non-jailbroken devices to make dylibs, but you have to find a way to export dylib files from App documentation
+3: Fix the problem that the floating button suddenly disappears due to switching pages when some apps are started
+4: Fix the problem that setValue may fail to modify the base address data on some devices
+H5GG v5.1 test:
+1: The cross-process version is changed to an independent app developed by shadow, and the compatibility problem in the 14 system is fixed
+3: Fix the problem that the cross-process version cannot call getRangesList to obtain the module base address
+4: Replace the H5GG special icon designed by shadow, more tasteful
+H5GG v5.2 test:
+1: Fix the problem that the cross-process version cannot select the target in the C1 jailbreak environment
+2: Added the target selection js interface call for the cross-process version, the normal version does not need to be called
+H5GG v5.3 test:
+1: C1 jailbreak repaired by shadow may prompt no network problem
+2: Update the adaptation scheme of 12 systems provided by QQ nickname
+3: The cross-process version is adjusted to start the automatic display window interface
+H5GG v5.4 test:
+1: Fix the problem that the list will not be automatically cleared after cross re-selection process
+2: Adjust the layout of the left button interface to be more intuitive and clear
+3: For individual devices that do not have access to the Internet, add detailed prompts
+H5GG v5.5 test:
+1: Fix the abnormal display of the prompt box in js of some devices
+2: Fix the problem that some devices click to make plug-in cross-process APP flashback
+3: Fixed the problem that some devices failed to make plug-ins
+4: Fix the white screen problem of the cross-process version APP after installing the universal version
+5: Optimize the display format problem of F32/F64 less than 1.0
+H5GG v5.6 test:
+1: Optimize the error message of numerical search and adjacent search parameters
+2: Optimize the prompt information of network failure, the built-in jquery can also run offline
+3: Add getRangesList to return the end address of the module (.end attribute)
+4: The floating window supports transparent border background, you need to set body{background-color: transparent}
+5: Enhance the security of the core module to make the operation more stable and smoother
+6: Fixed the problem that the scrolling result list did not load more data in some cases
+H5GG v5.7 test:
+1: Fix the problem that the size of the floating window is automatically reduced when dragging the floating window to the edge of the screen
+2: Increase the area size of the draggable floating window at the top, and it is easier to drag in landscape mode
+3: Optimize the original APP interface that can be touched outside the floating window area
+4: The floating window is changed to opaque by default, and the transparency is adjusted using body{background-color: rgba(255,255,255,0.8)}
+5: Added the js interface setWindowTouch, which can set the touch penetration of the floating window for full-screen drawing
+7: Added js interface setButtonAction, you can set custom floating button click action
+8: Optimize some js interfaces (non-h5gg engine), unified naming, temporarily compatible with old versions
+H5GG v5.8 test:
+1: Fix the problem that the ipad cannot touch the screen in full-screen drawing mode
+2: Added js interface setButtonImage, you can set the icon of the floating button
+3: Added js interface setWindowVisible, you can set the display or hide of the floating window
+4: Optimize the underlying graphics engine of H5 to enhance the efficiency and performance of the graphics engine
+H5GG v5.9 test:
+1: Fix the problem that the window display size is not correct in the cross-process version
+2: Fix the problem of insufficient memory when searching in a very large range
+3: Reduce the memory usage of the search process, more smooth and stable
+4: The proximity range of proximity search is limited to 2~4096
+5: Added horizontal and vertical screen switching to automatically adjust the layout position of the floating window
+6: Fix the problem that the floating window cannot be seen in ipad split screen mode
+7: Fix the problem that the modification pop-up box cannot pop up after clicking the search result
+H5GG v6.0 test:
+1: The cross-process version of the app can now be displayed in a global suspension!
+2: Fixed the problem of search crash and incorrect results in version 5.9
+3: Hide icon and close menu button in cross-process app
+4: Fixed the issue that the interface flickered when the mobile phone holding orientation was changed
+5: Fix the problem that some APPs open the prompt that JS fails to load
+H5GG v6.1 test:
+1: Fix the possible flashback problem when opening the cross-process APP
+2: Fix the problem of no response when clicking the floating button on the desktop
+3: Fix the problem that the floating button goes off-screen when rotating the screen
+H5GG v6.2 test:
+1: Fix the problem that the lock screen cannot be unlocked after the inter-process hovering lock screen
+2: Cross-process suspension mode supports global transparent background
+3: Cross-process suspension mode supports touch penetration outside the suspension window
+4: Cross-process suspension mode supports custom button actions
+5: Separate the cross-process suspension module into a pluggable type
+H5GG v6.3 test:
+1: Perfect support for ipad split screen/suspension to automatically adjust the interface layout
+2: Fix the problem that the position of the floating icon on the ipad split screen rotates the screen is disordered
+3: Fix the abnormal display problem of the multi-task floating interface drawn across processes
+4: Re-optimize the cross-process suspension and rotation method to automatically follow the current APP
+5: Automatically clear the drag area, button actions, etc. before loading the new H5 page
+H5GG v6.4 test:
+1: The cross-process floating version no longer supports iPad split screen and floating
+2: Added cross-process normal version, which supports iPad split screen and floating
+3: Fix the problem that the display exceeds the border when the iPad is split-screen floating
+4: Fix the abnormal problem of rotating layout on iPad when hovering across processes
+5: Fix the problem that the cross-process suspension may be stuck on the ipad
+6: Fix the problem that the general version may flash back when there is no network
+H5GG v6.5 test:
+1: Fix the problem that the cross-process version of full-screen drawing cannot touch the screen
+2: Fix the problem that the hidden display menu may crash in full screen mode
+3: Fix the problem that the height of the search result list may be displayed abnormally
+4: Fix the problem that some ios13 pop-up prompt boxes are displayed in the lower layer
+H5GG v6.6 test:
+1: Cross-process full-screen suspension to adapt to ios12 system
+2: There will be conflicting APPs in the forbidden part of the general version
+H5GG v6.7 test:
+1: Cross-process full-screen suspension adaptation to ios11 system suspension
+2: Fix the problem that the uninstall deb of the cross-process version automatically ends
+3: Add the prompt message that no target is selected in the cross-process version
+4: Add js interface setLayoutAction to handle dynamic layout
+5: Optimize some logical judgments to adapt to ios15 system jailbreak in advance
+6: Optimize the automatic layout of the floating window to adapt to some old devices
+H5GG v6.8 test:
+1: The cross-process floating icon is adjusted to be displayed after the APP is opened
+2: The cross-process suspension version supports the creation of custom icons for plugins
+H5GG v6.9 update:
+1: Fix the problem of no response when the cross-process suspension version is opened
+2: Fix the problem of icon residue after uninstalling the cross-process version
 -->
+
 <html>
 <head>
 <title>H5GG</title>
@@ -522,50 +490,50 @@ if(typeof $ == 'undefined')
 </script>
 
 <!--script>
-***************** H5GG JS脚本引擎 (v6.7更新) *******************
-h5gg是引擎对象, 可以调用如下函数(类似安卓gg的lua接口,但是参数有些区别)
+**************** H5GG JS Script Engine (v6.7 Update) ********************
+h5gg is an engine object, which can call the following functions (similar to the lua interface of Android gg, but the parameters are somewhat different)
 
-h5gg.setFloatTolerance('浮点偏差'); //设置F32/F64浮点搜索的偏差范围, 引擎默认是0.0
-h5gg.searchNumber('数值', '类型', '搜索下限', '搜索上限'); //搜索或二次搜索(改善)精确数值
-h5gg.searchNearby('数值', '类型', '邻近范围');  //邻近(联合)搜索, 和igg的一致
-h5gg.getValue('地址', '类型'); //读取指定地址的数值, 返回数值字符串
-h5gg.setValue('地址', '数值', '类型'); //设置指定地址的数值, 返回成功或失败
-h5gg.editAll('数值', '类型'); //修改搜索结果中的全部数值(清除结果后不能调用),返回修改成功个数
-h5gg.getResultsCount(); //获取搜索结果的总数量, 返回总个数
-h5gg.getResults('获取个数', '跳过个数'); //获取结果数组, 每个元素有address,value,type三个属性
-h5gg.clearResults(); //清除搜索结果, 开始新的搜索
-h5gg.getRangesList(‘模块文件名’); //返回模块数组,模块有start(基址),end(结尾地址),name(路径)属性
-    (若模块文件名=0, 则返回APP主程序模块信息, 若不传入模块文件名, 则返回所有模块列表)
+h5gg.setFloatTolerance('floating-point deviation'); //Set the deviation range of F32/F64 floating-point search, the engine defaults to 0.0
+h5gg.searchNumber('value', 'type', 'search lower limit', 'search upper limit'); //Search or secondary search (improve) exact value
+h5gg.searchNearby('value', 'type', 'adjacent range'); //Nearby (joint) search, consistent with igg's
+h5gg.getValue('address', 'type'); //Read the value of the specified address, return the value string
+h5gg.setValue('Address', 'Value', 'Type'); //Set the value of the specified address, return success or failure
+h5gg.editAll('value', 'type'); //Modify all the values ​​in the search results (cannot be called after clearing the results), and return the number of successful modifications
+h5gg.getResultsCount(); //Get the total number of search results, return the total number
+h5gg.getResults('Get the number', 'Skip the number'); //Get the result array, each element has three attributes of address, value and type
+h5gg.clearResults(); //Clear search results, start a new search
+h5gg.getRangesList('module file name'); //Return the module array, the module has start (base address), end (end address), name (path) attributes
+    (If the module file name=0, it will return the APP main program module information, if the module file name is not passed in, it will return a list of all modules)
 
-跨进程版专用:
-h5gg.setTargetProc(进程号); //设定当前目标进程, 返回成功或失败
-h5gg.getProcList('进程名'); //获取进程数组, 数组中的元素有pid(进程号), name(进程名) 属性
-    (若不传入进程名, 则返回所有运行中的app进程列表, 可以定时循环调用确定目标进程是否已经结束)
+For cross-process version only:
+h5gg.setTargetProc(process number); //Set the current target process, return success or failure
+h5gg.getProcList('process name'); //Get the process array, the elements in the array have pid (process number), name (process name) attributes
+    (If the process name is not passed in, it will return a list of all running app processes, which can be called periodically to determine whether the target process has ended)
 
-其他接口:
-setButtonImage(图标); //设置悬浮按钮图标, 可以传入http开头网址图片或base64编码的DataURL图片
-setButtonAction(js回调函数); //设置自定义的悬浮按钮图标点击动作, 传入一个js函数点击时被调用
+Other interfaces:
+setButtonImage(icon); //Set the icon of the floating button, you can pass in the http starting URL image or the base64 encoded DataURL image
+setButtonAction(js callback function); //Set a custom floating button icon click action, which is called when a js function is passed in
 
-setWindowRect(x, y, 宽度, 高度); //修改悬浮在屏幕中窗口位置和尺寸
-setWindowDrag(x, y, 宽度, 高度); //设置H5页面中可拖动悬浮窗的区域
-setWindowTouch(是否响应触控); //true=整个悬浮窗口触摸不可穿透, false=整个悬浮窗口触摸可以穿透
-setWindowTouch(x, y, 宽度, 高度); //单独设置H5页面中可触控操作的区域, 区域外触控可以穿透
-setWindowVisible(是否显示), //设置悬浮窗口的可见性, true=显示, false=隐藏
+setWindowRect(x, y, width, height); //Modify the position and size of the window suspended on the screen
+setWindowDrag(x, y, width, height); //Set the area of ​​the draggable floating window in the H5 page
+setWindowTouch (whether to respond to touch); //true=the entire floating window cannot be touched by touch, false=the entire floating window can be touched by touch
+setWindowTouch(x, y, width, height); //Set the touch-operable area in the H5 page separately, and touch outside the area can penetrate
+setWindowVisible (whether to display), //Set the visibility of the floating window, true=display, false=hidden
 
-setLayoutAction(js回调函数); //设置屏幕旋转或iPad分屏浮动变化时的js回调,回调函数参数为(宽,高)
+setLayoutAction(js callback function); //Set the js callback when the screen rotates or the iPad split screen floats, and the callback function parameters are (width, height)
 
-已废弃接口(目前版本调用无效果, 将来版本调用可能报错): closeMenu,setFloatButton,setFloatWindow
+Deprecated interface (the current version call has no effect, and the future version call may report an error): closeMenu, setFloatButton, setFloatWindow
 
-注意:
-1: 地址参数支持十进制或0x开头十六进制格式自动识别, 其他参数必须是字符串格式
-2: 浮点类型分为:F32,F64, 有符号数:I8,I16,I32,I64, 无符号数:U8,U16,U32,U64
-3: 如果搜索结果比较多, 不要一次性getResults获取全部数据, 容易造成内存爆增闪退崩溃, 应分段获取
-4: 搜索结果的地址和数值都是字符串类型, 如果要做数字运算请先用Number(x)转换成数字类型才能进行运算
-5: lua中会自动将+号两边的字符串类型转换成数字类型, js中+号如果是字符串就会连接两个字符串)
-6: lua中数组索引第一个是从[1]开始, js中数组索引第一个是从[0]开始, 这一点需要特别注意
-7: 数字类型可以用x.toString(16)转换成十六进制字符串格式, 但是x一定要是数字类型才能转成功
-8: 搜索的数值支持范围格式, 比如"50~100", 比如"2.3~7.8", 数值搜索和邻近(联合)搜索都支持
-9: 悬浮窗默认尺寸为370x370, 可在H5页面启动时通过js接口设置位置和尺寸以及可拖动区域
+Notice:
+1: The address parameter supports automatic identification in decimal or hexadecimal format starting with 0x, other parameters must be in string format
+2: Floating point types are divided into: F32, F64, signed numbers: I8, I16, I32, I64, unsigned numbers: U8, U16, U32, U64
+3: If there are many search results, do not get all the data at one time with getResults, it is easy to cause memory explosion, flashback and crash, and should be obtained in sections
+4: The address and value of the search result are all string types. If you want to do digital operations, please use Number(x) to convert them into numeric types before you can perform operations.
+5: In lua, the string type on both sides of the + sign will be automatically converted into a numeric type. If the + sign in js is a string, the two strings will be connected)
+6: The first array index in lua starts from [1], and the first array index in js starts from [0], which requires special attention
+7: The numeric type can be converted into a hexadecimal string format with x.toString(16), but x must be a numeric type to be converted successfully
+8: The numerical value of the search supports the range format, such as "50~100", such as "2.3~7.8", both numerical search and adjacent (joint) search are supported
+9: The default size of the floating window is 370x370, the position and size and the draggable area can be set through the js interface when the H5 page starts
 
 </script>
 <!---->
@@ -573,7 +541,7 @@ setLayoutAction(js回调函数); //设置屏幕旋转或iPad分屏浮动变化�
     
 if(typeof $ == 'undefined')
     //while(1)
-        alert("网络连接失败, 请重新启动!");
+        alert("Network connection failed, please restart!");
     
 //根据选择的有符号/无符号数确定搜索类型
 function h5ggType(type)
@@ -677,7 +645,7 @@ $(document).ready(function(){
                     }
                     
                     if(!alive) {
-                        alert("目标进程已结束\n\n请点击标题栏选择新的目标");
+                        alert(""The target process has ended\n\nClick the title bar to select a new target");
                         $("#procname").removeAttr('pid');
                         $("#procname").text('');
                     }
@@ -709,10 +677,10 @@ $(document).ready(function(){
         if(typeof h5gg!='undefined')
             datavalue = h5gg.getValue(address, h5ggType(datatype));
         
-        showPopView("修改", function(type, value){
+        showPopView("Modify", function(type, value){
             
             if(!h5gg.setValue(address, value, h5ggType(type))) {
-                alert("修改失败,可能地址已失效!");
+                alert("Modification failed!");
             }
             
             onClickRefreshResults();
@@ -734,7 +702,7 @@ function refreshProcList()
         btn.click(function()
         {
             if(!h5gg.setTargetProc($(this).attr('pid'))) {
-                alert("无法选定该目标");
+                alert("Process selection failed!");
                 return;
             }
             
@@ -759,13 +727,13 @@ function refreshLocalSrcipts()
     setTimeout(function(){
         
         if(jsfiles.length==0) {
-            $("table#localjslist tbody").append("<tr><td colspan=2>正在搜索当前App的Documents数据目录...<br/>正在搜索当前App的.app程序目录...<br/>没有找到任何(*.js)或(*.html)文件!</td></td>");
+            $("table#localjslist tbody").append("<tr><td colspan=2>Searching the current App's Documents data directory...<br/>Searching the current App's .app program directory...<br/>No (*.js) or (*.html) files found!</td></td>");
         }
         
-        $("table#localjslist tbody").append('<tr><td style="border-right-style:none; color:blue">从文件管理器中选择</td><td style="border-left-style:none;width:45px"><button onclick="h5gg.pickScriptFile(onClickLoadScript)">浏览</button></td></tr>');
+        $("table#localjslist tbody").append('<tr><td style="border-right-style:none; color:blue">Select from file manager</td><td style="border-left-style:none;width:45px"><button onclick="h5gg.pickScriptFile(onClickLoadScript)">Load</button></td></tr>');
         
         for(var i=0; i<jsfiles.length; i++) {
-            var row = '<tr><td style="border-right-style:none;font-weight:bold;color:green">'+jsfiles[i].name+'</td><td style="border-left-style:none;width:45px"><button onclick="onClickLoadScript(\''+jsfiles[i].path+'\')">加载</button></td></tr>';
+            var row = '<tr><td style="border-right-style:none;font-weight:bold;color:green">'+jsfiles[i].name+'</td><td style="border-left-style:none;width:45px"><button onclick="onClickLoadScript(\''+jsfiles[i].path+'\')">Load</button></td></tr>';
             $("table#localjslist tbody").append(row);
         }
     }, 300);
@@ -806,13 +774,13 @@ function onClickLoadScript(url)
     script.type = "text/javascript";
     
     script.onload = function () {
-      alert("JS脚本执行完毕");
+      alert("Script execution completed");
         $("#popup_progress").hide();
         $("#maskview_script").hide();
     };
     
     script.onerror = function () {
-        alert("加载失败! 文件不存在或网络异常");
+        alert("Error! Unable to load a valid script!");
         $("#popup_progress").hide();
         $("#maskview_script").hide();
     };
@@ -912,7 +880,7 @@ function onClickRefreshResults(clean)
    }
 
     var count = h5gg.getResultsCount();
-    $("#results_count").text("共找到"+count+"条结果");
+    $("#results_count").text("Found"+count+"results");
     $("#results_count").show();
     
     var currentCount = Number($("table#resultList").attr("currentCount"));
@@ -951,23 +919,23 @@ function onClickEditAll()
 {
     /*
     if($("table#resultList tr").length==0) {
-        alert("没有可修改的数据");
+        alert("No modified data!");
         return;
     }*/
     
-    showPopView("修改全部", function(type, value){
+    showPopView("Edit all", function(type, value){
 
         var count = h5gg.editAll(value, h5ggType(type));
         
         onClickRefreshResults();
         
-        alert("成功修改"+count+"个数据");
+        alert("Modified"+count+"results");
     });
 }
 
 function onClickSearchNumber()
 {
-    showPopView("搜索数值", function(type, value) {
+    showPopView("Search value", function(type, value) {
         
         h5gg.setFloatTolerance($("#float_tolerance").val());
         
@@ -987,7 +955,7 @@ function onClickSearchNearby()
         return;
     }*/
     
-    showPopView("搜索附近数值", function(type, value){
+    showPopView("Search nearby value", function(type, value){
         
         h5gg.setFloatTolerance($("#float_tolerance").val());
         
@@ -1002,42 +970,45 @@ function onClickSearchNearby()
 
 </head>
 <body bgcolor="#E8E8E8" style="margin:0;">
+
+<!--
+Translated to English
+-->
+
 <!--标题栏-->
 <div id="titleBar" style="background-color:#D1D1D1; padding:5px; margin:0px; height:12px">
-&nbsp;<font style="color:green">H5</font> <font style="color:red">GG</font>&nbsp;v6.9
-<span id="crossproc" style="display:none">
-<font style="color:blue">&nbsp;跨进程&nbsp;</font><font id="procname">procname</font>
+&nbsp;<font style="color:green">H5</font> <font style="color:red">GG</font>&nbsp;v6.9<span id="crossproc" style="display:none">
+<font style="color:blue">&nbsp;Select Target Process&nbsp;</font><font id="procname">procname</font>
 </span>
-    
 <div id="closeMenu" style="float:right; font-size:16px; line-height:14px; font-family: Arial, sans-serif;" onclick="setWindowVisible(false)">&nbsp;X&nbsp;</div>
 </div>
 <!--用一个表格来布局左右两栏-->
-<table id="bodyView" width="100%" style="table-layout:fixed;height: calc(100% - 22px) ;">
+<table id="bodyView" width="100%" style="table-layout:fixed;height: calc(100% - 22px);">
 <tr>
 <td style="vertical-align:top;width:130px;border-right:solid 2px #D1D1D1;">
 <div>
-搜索下限:<input id="range_min" style="width:80px;padding-left:0" value="0x00000000" />
+Min Range:<input id="range_min" style="width:80px;padding-left:0" value="0x00000000" />
 <br/>
-搜索上限:<input id="range_max" style="width:80px;padding-left:0"  value="0x200000000" />
+Max Range:<input id="range_max" style="width:80px;padding-left:0"  value="0x200000000" />
 <br/>
-<label><input type=radio name="numtype" value="signed" checked />有符号</label>
-<label><input type=radio name="numtype" value="unsigned" />无符号</label>
+<label><input type=radio name="numtype" value="signed" checked />Signed</label>
+<label><input type=radio name="numtype" value="unsigned" />Unsigned</label>
 <br/>
-<button onclick="onClickSearchNumber()">搜索数值</button>
-<button onclick="onClickSearchNearby()">邻近搜索</button>
+<button onclick="onClickSearchNumber()">Number</button>
+<button onclick="onClickSearchNearby()">Nearby</button>
 <br/>
-<button onclick="onClickClearResults()">清除</button>
-<button onclick="onClickEditAll()">全改</button>
-<button onclick="onClickRefreshResults()">刷新</button>
+<button onclick="onClickClearResults()">New</button>
+<button onclick="onClickEditAll()">Edit</button>
+<button onclick="onClickRefreshResults()">Update</button>
 <br/>
-<button onclick="onShowLoadScript(true)">加载脚本</button>
-<button onclick="h5gg.make()">制作插件</button>
+<button onclick="onShowLoadScript(true)">Load</button>
+<button onclick="h5gg.make()">Create</button>
 <br/>
-邻近范围:<input id="nearby_range" style="width:80px"  value="0x100"/>
+Nearby Range:<input id="nearby_range" style="width:80px"  value="0x100"/>
 <br/>
-浮点误差:<input id="float_tolerance" style="width:80px" value="0.0"/>
+Float Tolerance:<input id="float_tolerance" style="width:80px" value="0.0"/>
 <br/>
-<p id="results_count" style="display:none">共找到<span>0</span>条结果</p>
+<p id="results_count" style="display:none">Found<span>0</span>results</p>
 </div>
 </td>
 <td style="vertical-align:top;">
@@ -1073,7 +1044,7 @@ function onClickSearchNearby()
 <div class="popup_container">
     
 <div id="popup_search_edit">
-<B id="titleBar">搜索数值</B>
+<B id="titleBar">Search Value</B>
 <br/><br/>
 <center>
 <table id="datatype" class="datatype">
@@ -1083,44 +1054,44 @@ function onClickSearchNearby()
 </table>
 </center>
 <br/>
-<input type="text" id="datavalue" style="width:100%; border:none" placeholder="数值" />
+<input type="text" id="datavalue" style="width:100%; border:none" placeholder="Please enter number" />
 <hr/><br/>
-<button id="cancel">取消</button>
+<button id="cancel">Cancel</button>
 &nbsp;&nbsp;&nbsp;
-<button id="action">搜索数值</button>
+<button id="action">Search</button>
 </div>
 
 
 <!--居中的加载脚本窗口,默认隐藏-->
 <div id="popup_loadscripts" class="popup_view3">
 <center>
-<div class="menubox current" menu="localjs" onclick="refreshLocalSrcipts()">本地加载 ⟳</div>
-<div class="menubox" menu="netjs">网络加载</div>
+<div class="menubox current" menu="localjs" onclick="refreshLocalSrcipts()">Open file</div>
+<div class="menubox" menu="netjs">Load from URL</div>
 <div style="float:right; font-size:16px; font-family: Arial, sans-serif;" onclick="onShowLoadScript(false)">&nbsp;X&nbsp;</div>
 </center>
 <hr/>
 <div id="localjs" class="menuview current scrollbar" style="height:190px">
 <table id="localjslist" style="width:100%;" border="1" cellspacing=0 cellpadding=0>
-<tr><td style="border-right-style:none; color:blue">选择其他位置</td><td style="border-left-style:none;width:45px"><button>浏览</button></td></tr>
-<tr><td style="border-right-style:none;">测试脚本1.js</td><td style="border-left-style:none;width:45px"><button>加载</button></td></tr>
-<tr><td style="border-right-style:none;">测试脚本1.js</td><td style="border-left-style:none;width:45px"><button>加载</button></td></tr>
-<tr><td style="border-right-style:none;">测试脚本1.js</td><td style="border-left-style:none;width:45px"><button>加载</button></td></tr>
-<tr><td style="border-right-style:none;">测试脚本1.js</td><td style="border-left-style:none;width:45px"><button>加载</button></td></tr>
-<tr><td style="border-right-style:none;">测试脚本1.js</td><td style="border-left-style:none;width:45px"><button>加载</button></td></tr>
-<tr><td style="border-right-style:none;">测试脚本1.js</td><td style="border-left-style:none;width:45px"><button>加载</button></td></tr>
-<tr><td style="border-right-style:none;">测试脚本1.js</td><td style="border-left-style:none;width:45px"><button>加载</button></td></tr>
-<tr><td style="border-right-style:none;">测试脚本1.js</td><td style="border-left-style:none;width:45px"><button>加载</button></td></tr>
-<tr><td style="border-right-style:none;">测试脚本1.js</td><td style="border-left-style:none;width:45px"><button>加载</button></td></tr>
-<tr><td style="border-right-style:none;">测试脚本1.js</td><td style="border-left-style:none;width:45px"><button>加载</button></td></tr>
+<tr><td style="border-right-style:none; color:blue">Choose another location</td><td style="border-left-style:none;width:45px"><button>Browse</button></td></tr>
+<tr><td style="border-right-style:none;">TestScript1.js</td><td style="border-left-style:none;width:45px"><button>Load</button></td></tr>
+<tr><td style="border-right-style:none;">TestScript1.js</td><td style="border-left-style:none;width:45px"><button>Load</button></td></tr>
+<tr><td style="border-right-style:none;">TestScript1.js</td><td style="border-left-style:none;width:45px"><button>Load</button></td></tr>
+<tr><td style="border-right-style:none;">TestScript1.js</td><td style="border-left-style:none;width:45px"><button>Load</button></td></tr>
+<tr><td style="border-right-style:none;">TestScript1.js</td><td style="border-left-style:none;width:45px"><button>Load</button></td></tr>
+<tr><td style="border-right-style:none;">TestScript1.js</td><td style="border-left-style:none;width:45px"><button>Load</button></td></tr>
+<tr><td style="border-right-style:none;">TestScript1.js</td><td style="border-left-style:none;width:45px"><button>Load</button></td></tr>
+<tr><td style="border-right-style:none;">TestScript1.js</td><td style="border-left-style:none;width:45px"><button>Load</button></td></tr>
+<tr><td style="border-right-style:none;">TestScript1.js</td><td style="border-left-style:none;width:45px"><button>Load</button></td></tr>
+<tr><td style="border-right-style:none;">TestScript1.js</td><td style="border-left-style:none;width:45px"><button>Load</button></td></tr>
 </table>
 </div>
 <div id="netjs" class="menuview">
 <br/><br/>
-<input id="netjsurl" style="width:100%" placeholder="请输入http/https开头的js/html文件网址链接" />
+<input id="netjsurl" style="width:100%" placeholder="Enter the full URL of the script (example: https://myscript.js)" />
 <br/><br/><br/>
 <hr/>
-<button onclick="onClickLoadScript($('#netjsurl').val())">加载JS脚本</button>
-<button onclick="if($('#netjsurl').val())window.location=$('#netjsurl').val();">加载H5页面</button>
+<button onclick="onClickLoadScript($('#netjsurl').val())">Load script</button>
+<button onclick="if($('#netjsurl').val())window.location=$('#netjsurl').val();">Exit</button>
 </div>
 
 <!--运行脚本灰色遮罩层(执行脚本时用)-->
@@ -1131,13 +1102,13 @@ function onClickSearchNearby()
 <!--居中的提示框, 默认隐藏-->
 <div id="popup_progress">
 <center>
-    执行中...
+    In progres ...
 </center>
 </div>
 
 <div id="popup_proclist">
 <center>
-选择目标
+Choose target process
 <hr/>
 <div id="proctable" class="scrollbar" style="min-height:50px; max-height:170px">
 <button>Process1</button>
@@ -1158,4 +1129,3 @@ function onClickSearchNearby()
 
 </body>
 </html>
-
