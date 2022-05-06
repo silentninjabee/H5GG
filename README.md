@@ -1,3 +1,13 @@
+This is fork of the original author's repo https://github.com/tuancc-repo/H5GG
+
+This fork is a work in progress, and is to facilitate a partial English language translation.
+
+PLEASE USE https://github.com/tuancc-repo/H5GG
+
+Change Log:
+6 May 2022
+ 1. Translated "Index.html" into english to be used via the script load button in the current version 6.9.
+
 # H5GG
 
 an iOS cheat engine for JavaScript APIs & Html5 UI.
