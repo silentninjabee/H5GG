@@ -1,0 +1,431 @@
+<!DOCTYPE>
+<html>
+<meta charset="UTF-8">
+<script>
+	setWindowDrag(0, 0, 400, 80);
+	setWindowRect(300, 100, 445, 290);
+
+	h5gg.clearResults();
+	h5gg.searchNumber('1088784512', 'I32', '0x00000000', '0x200000000');
+	h5gg.searchNearby('12', 'I32', '0x8');
+	h5gg.searchNumber('1088784512', 'I32', '0x00000000', '0x400000000');
+	count = h5gg.getResultsCount();
+	a = h5gg.getResults(count);
+	for (var i = 0; i < count; i++) {//ここで自分の位置を出力する
+		addr = a[i].address;
+		addr2 = addr - -0x4C
+		addrplx3 = "0x" + addr2.toString(16)
+		plxva2 = h5gg.getValue(addrplx3, "F32") //x座標
+		if ((plxva2 != 1.14794e-41)
+			&& (plxva2 != 1.4013e-45)
+			&& (plxva2 != 0)
+			&& (plxva2 <= 342300)
+			&& (plxva2 >= -342300)) {
+			addrplx2 = addrplx3 - -0x0
+			addrplx1 = "0x" + addrplx2.toString(16)
+			addrply2 = addrplx3 - -0x4
+			addrply1 = "0x" + addrply2.toString(16)
+			addrplz2 = addrplx3 - -0x8
+			addrplz1 = "0x" + addrplz2.toString(16)
+			plxva = h5gg.getValue(addrplx1, "F32") //x座標
+			plyva = h5gg.getValue(addrply1, "F32") //y座標
+			plzva = h5gg.getValue(addrplz1, "F32") //z座標
+		}
+	}
+</script>
+
+<body bgcolor="#000000">
+
+	<style>
+		body {
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		.toggle_input {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 5;
+			opacity: 0;
+			cursor: pointer;
+		}
+
+		.toggle_label {
+			width: 37.5px;
+			height: 20px;
+			background: #ccc;
+			position: relative;
+			display: inline-block;
+			border-radius: 10px;
+			transition: 0.4s;
+			box-sizing: border-box;
+		}
+
+		.toggle_label:after {
+			content: "";
+			position: absolute;
+			width: 18px;
+			height: 18px;
+			border-radius: 100%;
+			left: 1.5;
+			top: 0.9;
+			z-index: 0;
+			background: #fff;
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+			transition: 0.4s;
+		}
+
+		.toggle_input:checked+.toggle_label {
+			background-color: #4BD865;
+		}
+
+		.toggle_input:checked+.toggle_label:after {
+			left: 18.5px;
+		}
+
+		.toggle_button {
+			position: relative;
+			width: 37.5px;
+			height: 17.5px;
+			margin-right: -195px;
+			margin-top: 3px;
+			margin-bottom: 5px;
+		}
+	</style>
+   <font size="3" color="ff0000">
+   <div>H5GGロケ砲座標移動スクリプト v1.1.2</div>
+   <br>
+   </font>
+    <font size="1" color="ffffff">
+	<input type="button" id="button" value="プレイヤー座標取得" onClick="Coordinatef(this);">
+	<br>
+		ロケ砲座標取得
+		<div class="toggle_button">
+			<input id="toggle" class="toggle_input" type='checkbox' onclick="tglf()" />
+			<label for="toggle" class="toggle_label" />
+		</div>
+		<br>
+		<div>
+			<select id="SelectValue">
+				<option value="1">火山</option>
+				<option value="2">火山道</option>
+				<option value="3">小雪</option>
+				<option value="4">グリ山</option>
+				<option value="5">プリン</option>
+				<option value="6">黒曜山</option>
+				<option value="7">レッドウッド</option>
+				<option value="8">青オベ</option>
+				<option value="9">ツインピラー</option>
+				<option value="10">オアシス</option>
+				<option value="11">肉食</option>
+				<option value="12">草食</option>
+				<option value="13">西丘</option>
+				<option value="14">原油窪み</option>
+				<option value="15">天帝上</option>
+				<option value="16">レッドウッド湖</option>
+				<option value="17">青オベテーブル</option>
+				<option value="18">ペンギン島</option>
+				<option value="19">狩人上</option>
+				<option value="20">免疫横</option>
+				<option value="21">黒曜下</option>
+			</select>
+			<input type="button" value="設定" onclick="changeSelect()" />
+		</div>
+
+		<div>X座標(横): <span class="numvalue1">0</span></div>
+		<input type="range" id="slider1" min="-342300" max="342300" step="1" value="0" onchange="test(this)"
+			style="width:100%" />
+		<script>
+			var elem1 = document.getElementById('slider1');
+			elem1.addEventListener('input', (e) => {
+				document.getElementsByClassName('numvalue1')[0].innerHTML = elem1.value;
+			});
+			//   var target = document.getElementById('numvalue1');
+			//   var rangeValue = function (elem, target) {
+			//     return function(evt){
+			//       target.innerHTML = elem.value;
+			//     }
+			//   }
+			//   elem.addEventListener('input', rangeValue(elem, target));
+		</script>
+
+		<div>Y座標(縦): <span class="numvalue2">0</span></div>
+		<input type="range" id="slider2" min="-342300" max="342300" step="1" value="0" onchange="test2(this)"
+			style="width:100%" />
+		<script>
+			var elem2 = document.getElementById('slider2');
+			elem2.addEventListener('input', (e) => {
+				document.getElementsByClassName('numvalue2')[0].innerHTML = elem2.value;
+			});
+
+		</script>
+
+		<div>Z座標(高さ): <span class="numvalue3">0</span></div>
+		<input type="range" id="slider3" min="-45800" max="54400" step="1" value="0" onchange="test3(this)"
+			style="width:100%" />
+
+		<script>
+			var elem3 = document.getElementById('slider3');
+			elem3.addEventListener('input', (e) => {
+				document.getElementsByClassName('numvalue3')[0].innerHTML = elem3.value;
+			});
+		</script>
+	</font>
+
+	<script>
+		function changeSelect() {
+			var selectL = document.getElementById('SelectValue');
+			let place = selectL.value;
+			switch (place) {
+				case '1': //火山道
+					turretx = -86272;
+					turrety = -59585;
+					turretz = 38878;
+					getsetrtaddr();
+					break;
+				case '2': //火山
+					turretx = -88621;
+					turrety = -70721;
+					turretz = 36139;
+					getsetrtaddr();
+					break;
+				case '3': // 小雪
+					turretx = 26989;
+					turrety = -224864;
+					turretz = 41149;
+					getsetrtaddr();
+					break;
+				case '4': // グリ山
+					turretx = 234527;
+					turrety = -126907;
+					turretz = 24251;
+					getsetrtaddr();
+					break;
+				case '5': // プリン
+					turretx = 229939;
+					turrety = 96965;
+					turretz = -4907;
+					getsetrtaddr();
+					break;
+				case '6': // 黒曜山6
+					turretx = 68561;
+					turrety = -111871;
+					turretz = 23229;
+					getsetrtaddr();
+					break;
+				case '7': // レッドウッド
+					turretx = -13654;
+					turrety = 53674;
+					turretz = 14834;
+					getsetrtaddr();
+					break;
+				case '8': // 青オベ
+					turretx = -204145;
+					turrety = -187362;
+					turretz = 37930;
+					getsetrtaddr();
+					break;
+				case '9': // ツインピラー
+					turretx = 129857;
+					turrety = -47284;
+					turretz = -6382;
+					getsetrtaddr();
+					break;
+				case '10': // オアシス
+					turretx = 155255;
+					turrety = -216772;
+					turretz = -12508;
+					getsetrtaddr();
+					break;
+				case '11': // 肉食
+					turretx = 267345;
+					turrety = -265833;
+					turretz = -9809;
+					getsetrtaddr();
+					break;
+				case '12': // 草食
+					turretx = 277829;
+					turrety = 272729;
+					turretz = -14030;
+					getsetrtaddr();
+					break;
+				case '13': // 西丘
+					turretx = -263773;
+					turrety = -1601;
+					turretz = -9666;
+					getsetrtaddr();
+					break;
+				case '14': // 原油窪み
+					turretx = -265560;
+					turrety = -180313;
+					turretz = -9693;
+					getsetrtaddr();
+					break;
+				case '15': // 天帝上
+					turretx = -264880;
+					turrety = -252426;
+					turretz = -6310;
+					getsetrtaddr();
+					break;
+				case '16': // レッドウッド湖
+					turretx = -126330;
+					turrety = 97145;
+					turretz = -8732;
+					getsetrtaddr();
+					break;
+				case '17': // 青オベテーブル
+					turretx = -169293;
+					turrety = -249398;
+					turretz = -4423;
+					getsetrtaddr();
+					break;
+				case '18': // ペンギン島
+					turretx = -321633;
+					turrety = -314974;
+					turretz = -7217;
+					getsetrtaddr();
+					break;
+				case '19': // 狩人上
+					turretx = 2373;
+					turrety = 246549;
+					turretz = -9623;
+					getsetrtaddr();
+					break;
+				case '20': // 免疫横
+					turretx = 179645;
+					turrety = 68258;
+					turretz = -7988;
+					getsetrtaddr();
+					break;
+				case '21': // 黒曜下
+					turretx = 82909;
+					turrety = -15753;
+					turretz = -11802;
+					getsetrtaddr();
+					break;
+				default:
+			break;
+			}
+		}
+
+
+		function test(input) {
+			if (typeof rtaddrx1 === 'undefined') {
+				;
+			}
+			else {
+				for (var i = 0; i < count1; i++) {
+					rtaddrx1 = b[i].address;
+					h5gg.setValue(rtaddrx1, input.value, 'F32');
+				}
+			}
+		}
+
+		function test2(input2) {
+			if (typeof rtaddrx1 === 'undefined') {
+				;
+			}
+			else {
+				for (var i = 0; i < count1; i++) {
+					rtaddrx1 = b[i].address;
+					rtaddry2 = rtaddrx1 - -0x4;
+					rtaddry1 = "0x" + rtaddry2.toString(16);
+					h5gg.setValue(rtaddry1, input2.value, 'F32');
+				}
+			}
+		}
+
+		function test3(input3) {
+			if (typeof rtaddrx1 === 'undefined') {
+				;
+			}
+			else {
+				for (var i = 0; i < count1; i++) {
+					rtaddrx1 = b[i].address;
+					rtaddrz2 = rtaddrx1 - -0x8;
+					rtaddrz1 = "0x" + rtaddrz2.toString(16);
+					h5gg.setValue(rtaddrz1, input3.value, 'F32');
+				}
+			}
+		}
+
+		function tglf() {
+			if (typeof rtaddrx1 === 'undefined') {
+				alert("計算中");
+				h5gg.clearResults();
+				h5gg.searchNumber('1074020928', 'I32', '0x00000000', '0x400000000');
+				h5gg.searchNearby("1", 'F32', '0x50');
+				h5gg.searchNumber("1", 'F32', '0x00000000', '0x400000000');
+				h5gg.editAll("30", 'F32');
+				h5gg.clearResults();
+				h5gg.searchNumber('-2052', 'F32', '0x00000000', '0x400000000');
+				h5gg.searchNearby("1", 'F32', '0x50');
+				h5gg.searchNumber("1", 'F32', '0x00000000', '0x400000000');
+				h5gg.editAll("30", 'F32');
+				h5gg.clearResults();
+				location();
+
+
+
+			}
+			else {
+				;
+			}
+		}
+
+		function location() {
+			h5gg.clearResults();
+			h5gg.searchNumber('66014', 'I32', '0x00000000', '0x400000000'); 
+			h5gg.searchNearby('2097152', 'I32', '0x300');
+			h5gg.setFloatTolerance('400');
+			plxva = h5gg.getValue(addrplx1, "F32");
+			plyva = h5gg.getValue(addrply1, "F32");
+			plzva = h5gg.getValue(addrplz1, "F32");
+			h5gg.searchNearby(plxva, 'F32', '0x300');
+			h5gg.searchNearby(plyva, 'F32', '0x20');
+			h5gg.searchNumber(plxva, 'F32', '0x00000000', '0x400000000');
+			count1 = h5gg.getResultsCount();
+			b = h5gg.getResults(count1);
+			for (var i = 0; i < count1; i++) {//ロケ砲座標保存 x,y,z
+				rtaddrx1 = b[i].address;
+				rtaddry2 = rtaddrx1 - -0x4;
+				rtaddry1 = "0x" + rtaddry2.toString(16);
+				rtaddrz2 = rtaddrx1 - -0x8;
+				rtaddrz1 = "0x" + rtaddrz2.toString(16);
+			}
+			alert("計算終了");
+		}
+
+		function Coordinatef() {//自分の座標表示
+			plxva = h5gg.getValue(addrplx1, "F32");
+			plyva = h5gg.getValue(addrply1, "F32");
+			plzva = h5gg.getValue(addrplz1, "F32");
+			alert("現在のプレイヤーの座標\r\nX=" + plxva + "\r\nY=" + plyva + "\r\nZ=" + plzva);
+			alert("現在のプレイヤーのアドレス\r\nX=" + addrplx1 + "\r\nY=" + addrply1 + "\r\nZ=" + addrplz1);
+		}
+
+		function getsetrtaddr(){
+if (typeof rtaddrx1 === 'undefined'){
+  alert("ロケ砲座標を取得してください");
+}else{
+  for (var i = 0; i < count1; i++) {
+				rtaddrx1 = b[i].address;
+				rtaddry2 = rtaddrx1 - -0x4;
+				rtaddry1 = "0x" + rtaddry2.toString(16);
+				rtaddrz2 = rtaddrx1 - -0x8;
+				rtaddrz1 = "0x" + rtaddrz2.toString(16);
+				h5gg.setValue(rtaddrx1, turretx, 'F32');
+				h5gg.setValue(rtaddry1, turrety, 'F32');
+				h5gg.setValue(rtaddrz1, turretz, 'F32');
+			}
+}
+		}
+	</script>
+</body>
+
+</html>
